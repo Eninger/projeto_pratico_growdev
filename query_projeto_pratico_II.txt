@@ -1,0 +1,53 @@
+-- Criação da Base de Dados
+CREATE DATABASE IF NOT EXISTS DesempenhoVendas;
+
+-- Seleção da Base de Dados
+USE DesempenhoVendas;
+
+-- Tabela de Produtos
+CREATE TABLE Produtos (
+    id_produto INT PRIMARY KEY AUTO_INCREMENT,
+    nome_produto VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    categoria VARCHAR(50) NOT NULL
+);
+
+-- Tabela de Regiões
+CREATE TABLE Regioes (
+    id_regiao INT PRIMARY KEY AUTO_INCREMENT,
+    nome_regiao VARCHAR(100) NOT NULL,
+    estado VARCHAR(50),
+    pais VARCHAR(50) NOT NULL
+);
+
+-- Tabela de Vendas
+CREATE TABLE Vendas (
+    id_venda INT PRIMARY KEY AUTO_INCREMENT,
+    id_produto INT,
+    quantidade INT NOT NULL,
+    data DATE NOT NULL,
+    id_regiao INT,
+    FOREIGN KEY (id_produto) REFERENCES Produtos(id_produto),
+    FOREIGN KEY (id_regiao) REFERENCES Regioes(id_regiao)
+);
+
+-- Inserção de mais dados na tabela Produtos
+INSERT INTO Produtos (nome_produto, preco, categoria) VALUES
+    ('Produto D', 75.00, 'Eletrônicos'),
+    ('Produto E', 40.00, 'Vestuário'),
+    ('Produto F', 25.00, 'Acessórios');
+
+-- Inserção de mais dados na tabela Regioes
+INSERT INTO Regioes (nome_regiao, estado, pais) VALUES
+    ('Região Leste', 'Nova York', 'EUA'),
+    ('Região Centro-Oeste', 'Goiás', 'Brasil'),
+    ('Região Nordeste', 'Bahia', 'Brasil');
+
+-- Inserção de mais dados na tabela Vendas
+INSERT INTO Vendas (id_produto, quantidade, data, id_regiao) VALUES
+    (1, 120, '2023-04-01', 4),
+    (2, 60, '2023-05-01', 5),
+    (3, 90, '2023-06-01', 6),
+    (4, 85, '2023-07-01', 1),
+    (5, 55, '2023-08-01', 2),
+    (6, 75, '2023-09-01', 3);
